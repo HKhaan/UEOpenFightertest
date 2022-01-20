@@ -22,7 +22,6 @@ class UEOPENFIGHTER_API AUEOpenFighterGameModeBase : public AGameModeBase
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		UFighters* Fighters;
 	int LastSpawnedPlayerIndex;
 	bool firstTick = false;
 	void CreateBounds();

@@ -34,14 +34,15 @@ void AUEOpenFighterCharacter::BeginPlay()
 	auto cgmb = Cast<AUEOpenFighterGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	int PlayerIndex = cgmb->LastSpawnedPlayerIndex;
 	Entity = World::CreateEntity();
+	Entity->FighterData = &FighterData;
 	Entity->Actor = this;
-	//Entity->FighterData = &cgmb->Fighters->Fighters[0];
 	Entity->Body = ((BodyComponent*)ComponentFactory::AddComponent(Entity, ComponentTypes::BodyComponentType));
 	Entity->Body->Shape = new Cylinder(35, 180);
-	Entity->Animator = ((AnimationComponent*)ComponentFactory::AddComponent(
+	Animator = Entity->Animator = ((AnimationComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::AnimationComponentType));
 	Entity->Input = ((InputReceiverComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::InputReceiverComponentType));
+
 	ComponentFactory::AddComponent(Entity, ComponentTypes::IdleComponentType);
 	ComponentFactory::AddComponent(Entity, ComponentTypes::WalkingComponentType);
 	Entity->Input->GetData()->AssignedGamepad = PlayerIndex;
@@ -57,16 +58,19 @@ void AUEOpenFighterCharacter::BeginPlay()
 	Entity->Body->GetData()->Velocity.X = Fix(0);
 	Entity->Body->GetData()->Velocity.Y = Fix(0);
 	Entity->Body->GetData()->Velocity.Z = Fix(0);
-	//for (auto comp : Components)
-	{
-		//ComponentFactory::AddComponent(Entity, comp);
-	}
 }
 
 // Called every frame
 void AUEOpenFighterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (Animator != nullptr &&
+		Animator->GetData()->Animation != nullptr
+		&& Animator->GetData()->Animation != CurrentAnimation
+		) {
+		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset,false);
+		CurrentAnimation = Animator->GetData()->Animation;
+	}
 }
 
 // Called to bind functionality to input

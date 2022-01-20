@@ -51,6 +51,9 @@ void WalkingComponent::Update(Entity* entity)
 	{
 		entity->SetState(EFightState::Idle);
 	}
+	else {
+		entity->Animator->GetData()->Animation = &entity->FighterData->Mobility.Forward;
+	}
 }
 
 bool WalkingComponent::CheckShouldTransitionTo(Entity* entity)

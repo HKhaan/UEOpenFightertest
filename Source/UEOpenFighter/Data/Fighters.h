@@ -7,7 +7,7 @@
 #include "Fighters.generated.h"
 
 UENUM(BlueprintType)
-enum  class EFightState: uint8
+enum  class EFightState : uint8
 {
 	Idle,
 	Walking,
@@ -17,7 +17,7 @@ enum  class EFightState: uint8
 };
 
 UENUM(BlueprintType)
-enum  class ENotifies: uint8
+enum  class ENotifies : uint8
 {
 	None,
 	Swoosh1,
@@ -39,23 +39,23 @@ USTRUCT(BlueprintType)
 struct UEOPENFIGHTER_API FComparator
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EFightState State;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EFightState State;
 };
 
 USTRUCT(BlueprintType)
 struct FHitbox {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int X;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int X;
+		int Y;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Y;
+		int Height;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Height;
+		int Width;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Width;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int RefHeight;
+		int RefHeight;
 };
 
 USTRUCT(BlueprintType)
@@ -75,70 +75,63 @@ USTRUCT(BlueprintType)
 struct FAnimFrame
 {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FHitbox> Hitboxes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FHitbox> Hitboxes;
+		TArray<FHitbox> Hurtbox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FHitbox> Hurtbox;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ENotifies Notify;
+		ENotifies Notify;
 };
 USTRUCT(BlueprintType)
 struct FAnimTransition
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	USkeletalMesh* Flipbook;
+		UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		USkeletalMesh* Flipbook;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EFightState State;
+		EFightState State;
 };
 
 USTRUCT(BlueprintType)
-struct UEOPENFIGHTER_API FAnimations
+struct UEOPENFIGHTER_API FAnimation
+{
+	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool PauseAfterAnimationEnded;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		UAnimationAsset* AnimatationAsset;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FVector2D EditorPosition;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		TArray<FAnimFrame> Frames;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EFightState State;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FAnimTransition> Transitions;
+};
+
+USTRUCT(BlueprintType)
+struct UEOPENFIGHTER_API FMobility
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Id;
+		FAnimation Idle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool PauseAfterAnimationEnded;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UAnimationAsset* AnimatationAsset;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FVector2D EditorPosition;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<FAnimFrame> Frames;
+		FAnimation Forward;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EFightState State;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FAnimTransition> Transitions;
+		FAnimation Crouch;
 };
 
 USTRUCT(BlueprintType)
 struct UEOPENFIGHTER_API FFighter
 {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Name;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString Name;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FAnimations> Animations;
+		FMobility Mobility;
 
 };
 
-
-UCLASS()
-class UEOPENFIGHTER_API UFighters : public UDataAsset
-{
-	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FFighter> Fighters;
-
-
-	UFUNCTION(BlueprintCallable)
-	void Save()
-	{
-#if WITH_EDITOR
-		this->Modify(true);
-		this->PostEditChange();
-#endif
-	}
-};

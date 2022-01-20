@@ -8,9 +8,11 @@ struct AnimationData{
 	{
 		CurrentFrame=0;
 		AnimationEnded=false;
+		Animation = nullptr;
+		InTransition = false;
 	}
 	int CurrentFrame;
-	int AnimationId;
+	FAnimation* Animation;
 	bool AnimationEnded;
 	bool InTransition;
 };

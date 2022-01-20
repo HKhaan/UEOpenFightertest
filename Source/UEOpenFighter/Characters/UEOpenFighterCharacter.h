@@ -35,5 +35,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	Entity* Entity;
+	AnimationComponent* Animator = nullptr;
+	FAnimation* CurrentAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FFighter FighterData;
 	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return MeshComponent; }
 };

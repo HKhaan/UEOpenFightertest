@@ -18,11 +18,6 @@ class UEOPENFIGHTER_API UConvertors : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintCallable, Category = Convertors)
-	static UFighters* CastToFighters(UObject* fighter)
-	{
-		return Cast<UFighters>(fighter);
-	}
 };
 
 //TODO: create an helper class

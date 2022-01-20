@@ -22,6 +22,7 @@ void IdleComponent::Update(Entity* entity)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("test"));
 	}
+	entity->Animator->GetData()->Animation = &entity->FighterData->Mobility.Idle;
 	WalkingComponent::CheckShouldTransitionTo(entity);
 	KickComponent::CheckShouldTransitionTo(entity);
 }

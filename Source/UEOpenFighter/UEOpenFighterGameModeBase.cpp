@@ -37,7 +37,6 @@ void AUEOpenFighterGameModeBase::BeginPlay()
 	VirtualMemory::Clear();
 	World::componentTypes.clear();
 	World::entities.clear();
-	DefaultPawnClass = FighterActors;
 	FindAllActors(GetWorld(), SpawnPoints);
 	SpawnPointsCount = SpawnPoints.Num();
 	auto gameInstance = Cast<UUEOpenFighterGameInstance>(GetGameInstance());
@@ -63,6 +62,7 @@ void AUEOpenFighterGameModeBase::BeginPlay()
 	for (auto spawn : SpawnPoints)
 	{
 		LastSpawnedPlayerIndex = spawn->PlayerIndex;
+		DefaultPawnClass = gameInstance->SelectedFighters[gameInstance->PlayerCount];
 		APlayerController* controller;
 		if (spawn->PlayerIndex >= 0)
 		{
