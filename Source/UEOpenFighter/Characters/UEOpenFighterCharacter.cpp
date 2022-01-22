@@ -41,6 +41,9 @@ void AUEOpenFighterCharacter::BeginPlay()
 	Entity->Body->Shape = new Cylinder(35, 180);
 	Animator = Entity->Animator = ((AnimationComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::AnimationComponentType));
+	if (FighterData != nullptr) {
+		Animator->GetData()->Animation = &FighterData->Mobility.Idle;
+	}
 	Entity->Input = ((InputReceiverComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::InputReceiverComponentType));
 
@@ -80,10 +83,6 @@ void AUEOpenFighterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-TArray<FTransform> AUEOpenFighterCharacter::TestFunction()
-{
-	return FighterData->BakeBones(GetMesh());
-}
 
 void AUEOpenFighterCharacter::ScheduleBakingFighter()
 {

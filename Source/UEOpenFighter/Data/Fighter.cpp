@@ -42,7 +42,7 @@ static FTransform GetWorldTransformForBone(UAnimSequence* AnimSequence, USkeleta
 
 void UFighter::BakeAnim(USkeletalMeshComponent* mesh, FAnimation* anim, FMove* move)
 {
-	if (anim != nullptr) return;
+	if (anim == nullptr) return;
 	auto animSeq = reinterpret_cast<UAnimSequence*>(anim->AnimatationAsset);
 	auto amntFrames = FMath::CeilToInt(animSeq->SequenceLength * ANIMATION_BAKE_FPS);
 	anim->Frames.Empty();
@@ -58,7 +58,7 @@ void UFighter::BakeAnim(USkeletalMeshComponent* mesh, FAnimation* anim, FMove* m
 		bool hitFrame = false;
 		if (move != nullptr) {
 			for (auto fr : move->ActiveFrames) {
-				if (fr.Start > i && fr.End < i) {
+				if (fr.Start < i && fr.End > i) {
 					hitFrame = true;
 				}
 			}
@@ -73,7 +73,7 @@ void UFighter::BakeAnim(USkeletalMeshComponent* mesh, FAnimation* anim, FMove* m
 			}
 			if (hitFrame) {
 				for (auto fr : move->ActiveFrames) {
-					if (fr.Start > i && fr.End < i) {
+					if (fr.Start < i && fr.End > i) {
 						if (fr.BoneName.Equals(boneName.ToString(), ESearchCase::CaseSensitive)) {
 							auto hitloc = GetWorldTransformForBone(animSeq, mesh, boneName, time).GetLocation();
 							anim->Frames[i].Hitboxes.Add(FHitbox(hitloc));
@@ -97,9 +97,9 @@ void UFighter::BakeBones(USkeletalMeshComponent* mesh)
 		BakeAnim(mesh, (FAnimation*)(&Mobility.Idle) + i, nullptr);
 	}
 	for (auto mv : Moves) {
-		BakeAnim(mesh, mv., &mv);
+		BakeAnim(mesh, &mv.Animatation, &mv);
 	}
 	for (auto mv : AirMoves) {
-		BakeAnim(mesh, mv., &mv);
+		BakeAnim(mesh, &mv.Animatation, &mv);
 	}
 }

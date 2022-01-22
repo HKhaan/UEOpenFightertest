@@ -94,8 +94,8 @@ struct UEOPENFIGHTER_API FActiveFrame
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int End;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString BoneName;
-}
+		FString BoneName;
+};
 
 USTRUCT(BlueprintType)
 struct UEOPENFIGHTER_API FMove

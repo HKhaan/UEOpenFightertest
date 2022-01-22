@@ -39,10 +39,6 @@ public:
 	FAnimation* CurrentAnimation;
 
 	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return MeshComponent; }
-	UFUNCTION(BlueprintCallable)
-	TArray<FTransform> TestFunction();
-
-
 
 	UFUNCTION(BlueprintCallable, Category = Fighter)
 		void ScheduleBakingFighter();
