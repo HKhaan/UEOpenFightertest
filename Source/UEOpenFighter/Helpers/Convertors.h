@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Runtime/Engine/Classes/Engine/UserInterfaceSettings.h"
-#include "UEOpenFighter/Data/Fighters.h"
+#include "UEOpenFighter/Data/Fighter.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Convertors.generated.h"
 

@@ -25,6 +25,7 @@ AUEOpenFighterCharacter::AUEOpenFighterCharacter(const FObjectInitializer& Objec
 	MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("MeshComponent");
 	RootComponent = MeshComponent;
 
+
 }
 
 // Called when the game starts or when spawned
@@ -34,7 +35,7 @@ void AUEOpenFighterCharacter::BeginPlay()
 	auto cgmb = Cast<AUEOpenFighterGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	int PlayerIndex = cgmb->LastSpawnedPlayerIndex;
 	Entity = World::CreateEntity();
-	Entity->FighterData = &FighterData;
+	Entity->FighterData = FighterData;
 	Entity->Actor = this;
 	Entity->Body = ((BodyComponent*)ComponentFactory::AddComponent(Entity, ComponentTypes::BodyComponentType));
 	Entity->Body->Shape = new Cylinder(35, 180);
@@ -68,7 +69,7 @@ void AUEOpenFighterCharacter::Tick(float DeltaTime)
 		Animator->GetData()->Animation != nullptr
 		&& Animator->GetData()->Animation != CurrentAnimation
 		) {
-		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset,false);
+		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset, false);
 		CurrentAnimation = Animator->GetData()->Animation;
 	}
 }
@@ -77,5 +78,42 @@ void AUEOpenFighterCharacter::Tick(float DeltaTime)
 void AUEOpenFighterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+TArray<FTransform> AUEOpenFighterCharacter::TestFunction()
+{
+	return FighterData->BakeBones(GetMesh());
+}
+
+void AUEOpenFighterCharacter::ScheduleBakingFighter()
+{
+#if WITH_EDITOR
+	if (Bake || AutoBake) {
+		Bake = false;
+		if (GetWorld()) {
+			if (StartedBaking) {
+				GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
+			}
+			FTimerDelegate TimerDelegate;
+			TimerDelegate.BindLambda([this]
+				{
+					BakeFighter();
+				});
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, 1.0f, false, 0.5f);
+			StartedBaking = true;
+		}
+	}
+#endif
+}
+
+void AUEOpenFighterCharacter::BakeFighter()
+{
+#if WITH_EDITOR
+	if (FighterData == nullptr) return;
+	FighterData->BakeBones(GetMesh());
+	FighterData->Modify(true);
+	FighterData->PostEditChange();
+	StartedBaking = false;
+#endif
 }
 

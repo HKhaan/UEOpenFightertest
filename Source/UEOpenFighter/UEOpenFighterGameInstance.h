@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/UEOpenFighterCharacter.h"
-#include "Data/Fighters.h"
+#include "Data/Fighter.h"
 #include "Engine/GameInstance.h"
 #include "UEOpenFighterGameInstance.generated.h"
 

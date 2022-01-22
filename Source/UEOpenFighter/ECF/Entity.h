@@ -1,6 +1,6 @@
 #pragma once
 #include <UEOpenFighter/ECF/Component.h>
-#include <UEOpenFighter/Data/Fighters.h>
+#include <UEOpenFighter/Data/Fighter.h>
 #include <UEOpenFighter/Fighters/Components/ComponentTypes.h>
 #include <map>
 class UFMODEvent;
@@ -49,7 +49,7 @@ public:
     std::map<EFightState, Component*> StatefullComponents;
     Component* GetComponent(ComponentTypes componentType);
     AUEOpenFighterCharacter* Actor=nullptr;
-    FFighter* FighterData=nullptr;
+    UFighter* FighterData=nullptr;
     BodyComponent* Body=nullptr;
     AnimationComponent* Animator=nullptr;
     InputReceiverComponent* Input=nullptr;

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "UEOpenFighter/Data/Fighters.h"
+#include "UEOpenFighter/Data/Fighter.h"
 #include "UEOpenFighter/ECF/Component.h"
 #include <UEOpenFighter/Characters/UEOpenFighterCharacter.h>
 

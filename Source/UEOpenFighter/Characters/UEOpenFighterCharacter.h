@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include <UEOpenFighter/Fighters/Components/ComponentTypes.h>
-#include "UEOpenFighter/Data/Fighters.h"
+#include "UEOpenFighter/Data/Fighter.h"
 #include "UEOpenFighter/ECF/Entity.h"
 #include "UEOpenFighter/Fighters/Components/InputReceiverComponent.h"
 #include "UEOpenFighterCharacter.generated.h"
@@ -37,7 +37,25 @@ public:
 	Entity* Entity;
 	AnimationComponent* Animator = nullptr;
 	FAnimation* CurrentAnimation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FFighter FighterData;
+
 	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return MeshComponent; }
+	UFUNCTION(BlueprintCallable)
+	TArray<FTransform> TestFunction();
+
+
+
+	UFUNCTION(BlueprintCallable, Category = Fighter)
+		void ScheduleBakingFighter();
+	UFUNCTION(BlueprintCallable, Category = Fighter)
+		void BakeFighter();
+#if WITH_EDITOR
+		FTimerHandle TimerHandle;
+		bool StartedBaking;
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Fighter)
+	bool Bake=false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Fighter)
+	bool AutoBake= true;
+#endif
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Fighter)
+		UFighter* FighterData;
 };

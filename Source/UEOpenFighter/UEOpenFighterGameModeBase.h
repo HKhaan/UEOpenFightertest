@@ -6,7 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "Characters/UEOpenFighterCharacter.h"
 #include "Actors/UEOpenFighterSpawner.h"
-#include "Data/Fighters.h"
+#include "Data/Fighter.h"
 #include "UEOpenFighterGameModeBase.generated.h"
 
 /**
