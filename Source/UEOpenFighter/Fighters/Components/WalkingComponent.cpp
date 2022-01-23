@@ -6,7 +6,7 @@
 
 
 #include "BodyComponent.h"
-#include "KickComponent.h"
+#include "HitComponent.h"
 #include "FighterComponent.h"
 
 
@@ -16,7 +16,7 @@ void WalkingComponent::Update(Entity* entity)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("test"));
 	}
-	if (KickComponent::CheckShouldTransitionTo(entity)) return;
+	if (HitComponent::CheckShouldTransitionTo(entity)) return;
 	bool moved = false;
 
 	if (entity->Input->IsPressed(EInputButtons::LeftButton))

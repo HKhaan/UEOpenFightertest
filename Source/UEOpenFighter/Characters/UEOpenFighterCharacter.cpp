@@ -72,8 +72,8 @@ void AUEOpenFighterCharacter::Tick(float DeltaTime)
 		Animator->GetData()->Animation != nullptr
 		&& Animator->GetData()->Animation != CurrentAnimation
 		) {
-		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset, false);
 		CurrentAnimation = Animator->GetData()->Animation;
+		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset, false);
 	}
 }
 

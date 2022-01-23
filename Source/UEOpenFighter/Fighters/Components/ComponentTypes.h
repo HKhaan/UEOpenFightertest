@@ -8,7 +8,7 @@ enum class ComponentTypes : uint8
 {
     InputReceiverComponentType,
     WalkingComponentType,
-    KickComponentTypes,
+    HitComponentTypes,
     FighterComponentType,
     BodyComponentType,
     AnimationComponentType,

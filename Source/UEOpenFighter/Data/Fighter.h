@@ -11,8 +11,7 @@ enum  class EFightState : uint8
 {
 	Idle,
 	Walking,
-	Kick,
-	Punch,
+	Hit,
 	GotHit,
 };
 

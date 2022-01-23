@@ -5,7 +5,7 @@
 
 #include "AnimationComponent.h"
 #include "BodyComponent.h"
-#include "KickComponent.h"
+#include "HitComponent.h"
 #include "WalkingComponent.h"
 #include "IdleComponent.h"
 #include "HitboxComponent.h"
@@ -45,9 +45,8 @@ Component* ComponentFactory::AddComponent(Entity* entity, ComponentTypes type)
 		DEFINE_STATELESS_COMPONENT(ComponentTypes::AnimationComponentType,AnimationComponent)
 		DEFINE_STATELESS_COMPONENT(ComponentTypes::HitboxComponentType, HitboxComponent)
 		DEFINE_STATEFULL_COMPONENT(ComponentTypes::WalkingComponentType,EFightState::Walking,WalkingComponent)
-		DEFINE_STATEFULL_COMPONENT(ComponentTypes::KickComponentTypes, EFightState::Kick,KickComponent)
+		DEFINE_STATEFULL_COMPONENT(ComponentTypes::HitComponentTypes, EFightState::Hit,HitComponent)
 		DEFINE_STATEFULL_COMPONENT(ComponentTypes::IdleComponentType, EFightState::Idle, IdleComponent)
-			//DEFINE_STATELESS_COMPONENT(ComponentTypes::FighterComponentType,FighterComponent)
 	default:
 		break;
 	}
@@ -55,5 +54,4 @@ Component* ComponentFactory::AddComponent(Entity* entity, ComponentTypes type)
 		World::componentTypes.end()))
 		World::componentTypes.push_back(type);
 	return comp;
-	//std::sort(World::componentTypes.begin(), World::componentTypes.end());
 }

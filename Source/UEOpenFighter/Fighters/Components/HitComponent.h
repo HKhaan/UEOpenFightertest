@@ -5,10 +5,10 @@ struct KickData
 {
 };
 
-class KickComponent :public RollbackComponent<KickData>
+class HitComponent :public RollbackComponent<KickData>
 {
 public:
-	KickComponent();
+	HitComponent();
 	static bool CheckShouldTransitionTo(Entity* entity);
 	virtual void Update(Entity* entity) override;
 };

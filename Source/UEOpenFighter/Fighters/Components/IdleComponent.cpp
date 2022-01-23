@@ -1,13 +1,13 @@
 ﻿#include "IdleComponent.h"
 #include "WalkingComponent.h"
-#include "KickComponent.h"
+#include "HitComponent.h"
 #include "AnimationComponent.h"
 #include "InputReceiverComponent.h"
 bool IdleComponent::CheckShouldTransitionTo(Entity* entity)
 {
 	
 	if (entity->Input->GetData()->Input == 0 && entity->Animator->GetData()->AnimationEnded) {
-		entity->SetState(EFightState::Walking);
+		entity->SetState(EFightState::Idle);
 		return true;
 	}
 	return false;
@@ -24,5 +24,5 @@ void IdleComponent::Update(Entity* entity)
 	}
 	entity->Animator->GetData()->Animation = &entity->FighterData->Mobility.Idle;
 	WalkingComponent::CheckShouldTransitionTo(entity);
-	KickComponent::CheckShouldTransitionTo(entity);
+	if (HitComponent::CheckShouldTransitionTo(entity)) return;
 }
