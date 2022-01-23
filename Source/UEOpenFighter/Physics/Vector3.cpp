@@ -73,3 +73,9 @@ int Vector3::operator!=(const Vector3 & v2) const {
 	return !(this->X == v2.X && this->Y == v2.Y && this->Z == v2.Z);
 }
 
+Fix Vector3::Dot(Vector3 vector1, Vector3 vector2) {
+	return	(vector1.X*vector2.X)+
+		(vector1.Y * vector2.Y)+
+		(vector1.Z * vector2.Z);
+	
+}

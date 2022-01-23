@@ -59,6 +59,7 @@ public:
 	// {
 	// 	return (X * X + Y * Y + Z * Z);
 	// }
+	static Fix Dot(Vector3 vector1, Vector3 vector2);
 
 	void setZero()
 	{
@@ -83,7 +84,7 @@ public:
 
 	Vector3 Right()
 	{
-		return Vector3(-1 * sin(Y + Fix(90)), Fix(0), cos(Y + Fix(90))) * Fix(-1);
+		return Vector3(-1 * sin(Z + Fix(90)), cos(Z + Fix(90)), Fix(0)) * Fix(-1);
 		//auto res = Vector3(FMath::DegreesToRadians(FMath::Sin(Y)), 0, FMath::DegreesToRadians(FMath::Cos(Y)));
 		//return Vector3(0, 0, 1);
 	}
@@ -96,7 +97,7 @@ public:
 
 	Vector3 Forward()
 	{
-		return Vector3(Fix(-1) * sin(Y), Fix(0), cos(Y)) * Fix(-1);
+		return Vector3(Fix(-1) * sin(Z), Fix(0), cos(Z)) * Fix(-1);
 		//return Vector3(1, 0, 0);
 		//return Vector3(FMath::DegreesToRadians(FMath::Sin(Y+90.0f)), 0, FMath::DegreesToRadians(FMath::Cos(Y+90.0f)));
 	}

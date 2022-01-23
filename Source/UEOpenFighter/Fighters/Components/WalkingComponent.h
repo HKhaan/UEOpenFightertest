@@ -6,9 +6,11 @@
 struct WalkingData{
 public:
     WalkingData(){
-        
+        Jumping = false;
+        JumpVal = 0;
     }
-    
+    bool Jumping;
+    int JumpVal;
 };
 
 class WalkingComponent: public RollbackComponent<WalkingData> {

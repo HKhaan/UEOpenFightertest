@@ -191,7 +191,6 @@ void ASynctestRunner::RunTick(TArray<int> inputs)
 			if((*entities)->Input->GetData()->AssignedGamepad>=0)
 			{
 				if(inputs.Num()>(*entities)->Input->GetData()->AssignedGamepad){
-					UE_LOG(LogTemp, Warning, TEXT("inp %d"),(*entities)->Input->GetData()->AssignedGamepad);
 					(*entities)->Input->GetData()->Input = inputs[(*entities)->Input->GetData()->AssignedGamepad];
 				}
 			}

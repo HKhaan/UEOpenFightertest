@@ -12,13 +12,29 @@
 
 void WalkingComponent::Update(Entity* entity)
 {
-	if(entity->Input&& entity->Input->GetData()->AssignedGamepad<0)
+	bool twod = true;
+	if (entity->Input && entity->Input->GetData()->AssignedGamepad < 0)
 	{
-		UE_LOG(LogTemp,Warning,TEXT("test"));
+		UE_LOG(LogTemp, Warning, TEXT("test"));
+	}
+	if (GetData()->Jumping) {
+		if (GetData()->JumpVal < 16) {
+			entity->Body->GetData()->Position.Z += Fix(GetData()->JumpVal)* Fix(1.75f);
+		}
+		else {
+			entity->Body->GetData()->Position.Z += Fix(15 - GetData()->JumpVal) * Fix(1.75f);
+		}
+		if (GetData()->JumpVal >= 30) {
+			GetData()->Jumping = false;
+		}
+		else {
+			GetData()->JumpVal++;
+			return;
+		}
 	}
 	if (HitComponent::CheckShouldTransitionTo(entity)) return;
 	bool moved = false;
-
+	bool vertical = false;
 	if (entity->Input->IsPressed(EInputButtons::LeftButton))
 	{
 		moved = true;
@@ -35,13 +51,20 @@ void WalkingComponent::Update(Entity* entity)
 	}
 	if (entity->Input->IsPressed(EInputButtons::UpButton))
 	{
-		moved = true;
-		entity->Body->GetData()->Velocity.Y = Fix(-10);
+		if (twod) {
+			GetData()->Jumping = true;
+			GetData()->JumpVal = 0;
+		}else{
+			moved = true;
+			entity->Body->GetData()->Velocity.Y = Fix(-10);
+			vertical = true;
+		}
 	}
-	else if (entity->Input->IsPressed(EInputButtons::DownButton))
+	else if (entity->Input->IsPressed(EInputButtons::DownButton) && !twod)
 	{
 		moved = true;
 		entity->Body->GetData()->Velocity.Y = Fix(10);
+		vertical = true;
 	}
 	else
 	{
@@ -53,15 +76,38 @@ void WalkingComponent::Update(Entity* entity)
 	}
 	else {
 		auto pos = entity->Body->GetData()->Position;
-		auto newPos = pos+ entity->Body->GetData()->Velocity;
-		entity->Body->GetData()->Rotation = pos.LookAt(newPos);
-		entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Forward, false);
+		auto newPos = pos + entity->Body->GetData()->Velocity;
+		auto newRot = pos.LookAt(newPos);
+		if (false) {
+			entity->Body->GetData()->Rotation = pos.LookAt(newPos);
+			entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Forward, false);
+		}
+		else {
+			if(!vertical){
+				auto dotp = Vector3::Dot(entity->Body->GetData()->Rotation.Forward(), entity->Body->GetData()->Velocity);
+				if (dotp > Fix(2)) {
+					entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Forward, false);
+				}
+				else if (dotp < Fix(-2) && dotp != Fix(10)) {
+					entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Backward, false);
+				}
+			}
+			else {
+				auto dotp = Vector3::Dot(entity->Body->GetData()->Rotation.Right(), entity->Body->GetData()->Velocity);
+				if (dotp > Fix(2)) {
+					entity->Animator->PlayAnimation(&entity->FighterData->Mobility.TowardsCam, false);
+				}
+				else if (dotp < Fix(-2)) {
+					entity->Animator->PlayAnimation(&entity->FighterData->Mobility.AwayFromCam, false);
+				}
+			}
+		}
 	}
 }
 
 bool WalkingComponent::CheckShouldTransitionTo(Entity* entity)
 {
-	const int moveInputs = EInputButtons::RightButton|EInputButtons::LeftButton|EInputButtons::UpButton|EInputButtons::DownButton;
+	const int moveInputs = EInputButtons::RightButton | EInputButtons::LeftButton | EInputButtons::UpButton | EInputButtons::DownButton;
 	if ((entity->Input->GetData()->Input & moveInputs) != 0) {
 		entity->SetState(EFightState::Walking);
 		return true;
