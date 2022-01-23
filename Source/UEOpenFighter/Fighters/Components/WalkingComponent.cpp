@@ -52,7 +52,10 @@ void WalkingComponent::Update(Entity* entity)
 		entity->SetState(EFightState::Idle);
 	}
 	else {
-		entity->Animator->GetData()->Animation = &entity->FighterData->Mobility.Forward;
+		auto pos = entity->Body->GetData()->Position;
+		auto newPos = pos+ entity->Body->GetData()->Velocity;
+		entity->Body->GetData()->Rotation = pos.LookAt(newPos);
+		entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Forward, false);
 	}
 }
 

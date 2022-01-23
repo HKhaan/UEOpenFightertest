@@ -10,7 +10,6 @@ Component *Entity::GetComponent(ComponentTypes componentType)  {
 
 void Entity::SetState(EFightState state)
 {
-    Animator->Transition(this,state);
     GetData()->currentState = state;
     
     

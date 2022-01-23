@@ -18,11 +18,7 @@ bool IdleComponent::CheckShouldTransitionTo(Entity* entity)
 
 void IdleComponent::Update(Entity* entity)
 {
-	if(entity->Input&& entity->Input->GetData()->AssignedGamepad<0)
-	{
-		UE_LOG(LogTemp,Warning,TEXT("test"));
-	}
-	entity->Animator->GetData()->Animation = &entity->FighterData->Mobility.Idle;
-	WalkingComponent::CheckShouldTransitionTo(entity);
 	if (HitComponent::CheckShouldTransitionTo(entity)) return;
+	if(WalkingComponent::CheckShouldTransitionTo(entity)) return;
+	entity->Animator->PlayAnimation(&entity->FighterData->Mobility.Idle, false);
 }

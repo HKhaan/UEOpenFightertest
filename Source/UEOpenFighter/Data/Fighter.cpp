@@ -45,6 +45,7 @@ void UFighter::BakeAnim(USkeletalMeshComponent* mesh, FAnimation* anim, FMove* m
 	if (anim == nullptr) return;
 	auto animSeq = reinterpret_cast<UAnimSequence*>(anim->AnimatationAsset);
 	auto amntFrames = FMath::CeilToInt(animSeq->SequenceLength * ANIMATION_BAKE_FPS);
+	anim->FrameCount=amntFrames;
 	anim->Frames.Empty();
 	for (size_t i = 0; i < amntFrames; i++)
 	{
@@ -96,10 +97,14 @@ void UFighter::BakeBones(USkeletalMeshComponent* mesh)
 	{
 		BakeAnim(mesh, (FAnimation*)(&Mobility.Idle) + i, nullptr);
 	}
-	for (auto mv : Moves) {
-		BakeAnim(mesh, &mv.Animatation, &mv);
+	for (size_t i = 0; i < Moves.Num(); i++)
+	{
+		BakeAnim(mesh, &Moves[i].Animatation, &Moves[i]);
+		printf("test?\n");
 	}
-	for (auto mv : AirMoves) {
-		BakeAnim(mesh, &mv.Animatation, &mv);
+	for (size_t i = 0; i < AirMoves.Num(); i++)
+	{
+		BakeAnim(mesh, &AirMoves[i].Animatation, &AirMoves[i]);
+		printf("test?\n");
 	}
 }

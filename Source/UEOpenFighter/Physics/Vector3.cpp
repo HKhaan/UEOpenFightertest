@@ -49,6 +49,15 @@ Vector3& Vector3::operator*=(const Fix value) {
 	return *this;
 }
 
+Vector3 Vector3::LookAt(Vector3 a)
+{
+	auto x2 = a.X - X;
+	auto y2 = a.Y - Y;
+	auto angle = fpm::atan2(y2, x2) * Fix(57.2957795);
+	angle = (angle - Fix(90));
+	return Vector3(Fix(0), Fix(0), angle);
+}
+
 Vector3 & Vector3::operator+=(const Vector3 & v2) {
 	this->X += v2.X;
 	this->Y += v2.Y;

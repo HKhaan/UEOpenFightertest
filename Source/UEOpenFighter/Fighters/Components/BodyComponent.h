@@ -7,11 +7,13 @@ struct BodyData{
     BodyData()
     {
         Radius=100;
-        Position= Vector3();
-        Velocity= Vector3();
+        Position = Vector3();
+        Velocity = Vector3();
+        Rotation = Vector3();
     }
     Vector3 Position;
     Vector3 Velocity;
+    Vector3 Rotation;
     int      Radius;
     
 };

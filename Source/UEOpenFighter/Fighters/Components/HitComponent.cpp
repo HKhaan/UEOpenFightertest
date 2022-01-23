@@ -25,8 +25,7 @@ bool HitComponent::CheckShouldTransitionTo(Entity* entity) {
 		for (size_t i = 0; i < moves.Num(); i++)
 		{
 			if (moves[i].Input == hitInput) {
-				entity->Animator->GetData()->Animation = &(moves[i].Animatation);
-				entity->Animator->GetData()->CurrentFrame = 0;
+				entity->Animator->PlayAnimation(&(entity->FighterData->Moves[i].Animatation));
 				entity->SetState(EFightState::Hit);
 				return true;
 			}

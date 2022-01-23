@@ -68,6 +68,7 @@ public:
 	}
 
 
+	Vector3 LookAt(Vector3 a);
 
 	Fix sin(Fix val)
 	{

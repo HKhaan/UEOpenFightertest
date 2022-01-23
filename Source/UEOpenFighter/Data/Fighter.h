@@ -66,6 +66,8 @@ struct UEOPENFIGHTER_API FAnimation
 		UAnimationAsset* AnimatationAsset;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		TArray<FAnimFrame> Frames;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int FrameCount;
 };
 
 USTRUCT(BlueprintType)

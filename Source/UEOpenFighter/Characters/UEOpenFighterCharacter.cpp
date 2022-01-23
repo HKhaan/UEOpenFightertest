@@ -42,15 +42,22 @@ void AUEOpenFighterCharacter::BeginPlay()
 	Animator = Entity->Animator = ((AnimationComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::AnimationComponentType));
 	if (FighterData != nullptr) {
-		Animator->GetData()->Animation = &FighterData->Mobility.Idle;
+		Animator->PlayAnimation(&FighterData->Mobility.Idle);
 	}
 	Entity->Input = ((InputReceiverComponent*)ComponentFactory::AddComponent(
 		Entity, ComponentTypes::InputReceiverComponentType));
 
 	ComponentFactory::AddComponent(Entity, ComponentTypes::IdleComponentType);
+	ComponentFactory::AddComponent(Entity, ComponentTypes::HitComponentType);
 	ComponentFactory::AddComponent(Entity, ComponentTypes::WalkingComponentType);
 	Entity->Input->GetData()->AssignedGamepad = PlayerIndex;
 	Entity->Body->GetData()->Position = Vector3::FromFVector(cgmb->SpawnPoints[0]->GetActorLocation());
+	if ((PlayerIndex+1)% 2 == 0) {
+		Entity->Body->GetData()->Rotation.Z = Fix(270);
+	}
+	else {
+		Entity->Body->GetData()->Rotation.Z = Fix(90);
+	}
 	for (auto spawnPoint : cgmb->SpawnPoints)
 	{
 		if (spawnPoint->PlayerIndex == PlayerIndex)
@@ -75,6 +82,7 @@ void AUEOpenFighterCharacter::Tick(float DeltaTime)
 		CurrentAnimation = Animator->GetData()->Animation;
 		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset, false);
 	}
+	SetActorRotation(FRotator::MakeFromEuler(Entity->Body->GetData()->Rotation.ToFVector()));
 }
 
 // Called to bind functionality to input

@@ -9,5 +9,8 @@
 void HitboxComponent::Update(Entity* entity)
 {
 	//TODO: refactor needed;
-	auto animator = (AnimationComponent*)entity->GetComponent(ComponentTypes::AnimationComponentType);
+	if (entity->GetState() == EFightState::Hit) {
+		auto animator = (AnimationComponent*)entity->GetComponent(ComponentTypes::AnimationComponentType);
+
+	}
 }

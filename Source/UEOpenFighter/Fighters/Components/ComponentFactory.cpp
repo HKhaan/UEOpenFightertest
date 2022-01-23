@@ -45,7 +45,7 @@ Component* ComponentFactory::AddComponent(Entity* entity, ComponentTypes type)
 		DEFINE_STATELESS_COMPONENT(ComponentTypes::AnimationComponentType,AnimationComponent)
 		DEFINE_STATELESS_COMPONENT(ComponentTypes::HitboxComponentType, HitboxComponent)
 		DEFINE_STATEFULL_COMPONENT(ComponentTypes::WalkingComponentType,EFightState::Walking,WalkingComponent)
-		DEFINE_STATEFULL_COMPONENT(ComponentTypes::HitComponentTypes, EFightState::Hit,HitComponent)
+		DEFINE_STATEFULL_COMPONENT(ComponentTypes::HitComponentType, EFightState::Hit,HitComponent)
 		DEFINE_STATEFULL_COMPONENT(ComponentTypes::IdleComponentType, EFightState::Idle, IdleComponent)
 	default:
 		break;
