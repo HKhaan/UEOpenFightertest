@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include <UEOpenFighter/Fighters/Components/ComponentTypes.h>
+#include <UEOpenFighter/ECF/Components/ComponentTypes.h>
 #include "UEOpenFighter/Data/Fighter.h"
 #include "UEOpenFighter/ECF/Entity.h"
-#include "UEOpenFighter/Fighters/Components/InputReceiverComponent.h"
+#include "UEOpenFighter/ECF/Components/InputReceiverComponent.h"
 #include "UEOpenFighterCharacter.generated.h"
 
 class Entity;

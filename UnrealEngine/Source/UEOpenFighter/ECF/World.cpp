@@ -3,8 +3,8 @@
 #include "Component.h"
 #include <map>
 
-#include "UEOpenFighter/Fighters/Components/BodyComponent.h"
-#include "UEOpenFighter/Fighters/Components/InputReceiverComponent.h"
+#include "UEOpenFighter/ECF/Components/BodyComponent.h"
+#include "UEOpenFighter/ECF/Components/InputReceiverComponent.h"
 std::list<Entity*> World::entities;
 std::list<ComponentTypes> World::componentTypes;
 int World::PhysicsPrecision = 2;

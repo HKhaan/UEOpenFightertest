@@ -8,8 +8,8 @@
 #include <UEOpenFighter/Controllers/FighterController.h>
 #include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
 #include <UEOpenFighter/ECF/World.h>
-#include <UEOpenFighter/Fighters/Components/ComponentFactory.h>
-#include <UEOpenFighter/Fighters/Components/InputReceiverComponent.h>
+#include <UEOpenFighter/ECF/Components/ComponentFactory.h>
+#include <UEOpenFighter/ECF/Components/InputReceiverComponent.h>
 #include "EngineUtils.h"
 #include "UEOpenFighter/UEOpenFighterGameInstance.h"
 #include "UEOpenFighter/UEOpenFighterGameModeBase.h"

@@ -1,7 +1,7 @@
 #pragma once
 #include <UEOpenFighter/ECF/Component.h>
 #include <UEOpenFighter/Data/Fighter.h>
-#include <UEOpenFighter/Fighters/Components/ComponentTypes.h>
+#include <UEOpenFighter/ECF/Components/ComponentTypes.h>
 #include <map>
 class UFMODEvent;
 class AUEOpenFighterCharacter;

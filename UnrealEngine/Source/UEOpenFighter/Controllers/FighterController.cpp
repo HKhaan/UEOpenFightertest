@@ -5,7 +5,7 @@
 
 #include "EngineUtils.h"
 #include "Camera/CameraActor.h"
-#include "UEOpenFighter/Fighters/Components/InputReceiverComponent.h"
+#include "UEOpenFighter/ECF/Components/InputReceiverComponent.h"
 #include "UEOpenFighter/Helpers/Convertors.h"
 
 void AFighterController::BeginPlay()

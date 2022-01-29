@@ -6,11 +6,11 @@
 #include <UEOpenFighter/ECF/World.h>
 #include <UEOpenFighter/ECF/Entity.h>
 #include <UEOpenFighter/Actors/UEOpenFighterSpawner.h>
-#include <UEOpenFighter/Fighters/Components/BodyComponent.h>
-#include <UEOpenFighter/Fighters/Components/InputReceiverComponent.h>
-#include <UEOpenFighter/Fighters/Components/AnimationComponent.h>
-#include <UEOpenFighter/Fighters/Components/HitboxComponent.h>
-#include <UEOpenFighter/Fighters/Components/ComponentFactory.h>
+#include <UEOpenFighter/ECF/Components/BodyComponent.h>
+#include <UEOpenFighter/ECF/Components/InputReceiverComponent.h>
+#include <UEOpenFighter/ECF/Components/AnimationComponent.h>
+#include <UEOpenFighter/ECF/Components/HitboxComponent.h>
+#include <UEOpenFighter/ECF/Components/ComponentFactory.h>
 #include <UEOpenFighter/UEOpenFighterGameModeBase.h>
 #include "Camera/CameraActor.h"
 #include "UEOpenFighter/Controllers/FighterController.h"

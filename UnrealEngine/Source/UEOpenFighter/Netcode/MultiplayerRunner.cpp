@@ -4,7 +4,7 @@
 #include "MultiplayerRunner.h"
 
 #include "UEOpenFighter/UEOpenFighterGameInstance.h"
-#include "UEOpenFighter/Fighters/Components/InputReceiverComponent.h"
+#include "UEOpenFighter/ECF/Components/InputReceiverComponent.h"
 #include "UEOpenFighter/Actors/UEOpenFighterSpawner.h"
 #include "UEOpenFighter/Controllers/FighterController.h"
 #include "UEOpenFighter/ECF/VirtualMemory.h"

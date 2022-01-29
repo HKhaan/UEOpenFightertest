@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 #include <functional>
-#include <UEOpenFighter/Fighters/Components/ComponentTypes.h>
+#include <UEOpenFighter/ECF/Components/ComponentTypes.h>
 
 class Entity;
 class World {

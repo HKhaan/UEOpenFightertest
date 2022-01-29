@@ -6,17 +6,17 @@
 
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "UEOpenFighter/Fighters/Components/AnimationComponent.h"
+#include "UEOpenFighter/ECF/Components/AnimationComponent.h"
 #include "UEOpenFighter/ECF/World.h"
 #include "UEOpenFighter/Helpers/Convertors.h"
 #include "UEOpenFighter/Physics/Shapes/Bound.h"
 #include "Controllers/FighterController.h"
-#include "Fighters/Components/WalkingComponent.h"
-#include "Fighters/Components/BodyComponent.h"
-#include "Fighters/Components/ComponentFactory.h"
-#include "Fighters/Components/FighterComponent.h"
-#include "Fighters/Components/HitboxComponent.h"
-#include "Fighters/Components/InputReceiverComponent.h"
+#include "ECF/Components/WalkingComponent.h"
+#include "ECF/Components/BodyComponent.h"
+#include "ECF/Components/ComponentFactory.h"
+#include "ECF/Components/FighterComponent.h"
+#include "ECF/Components/HitboxComponent.h"
+#include "ECF/Components/InputReceiverComponent.h"
 #include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
 #include "Components/CapsuleComponent.h"
 #include <UEOpenFighter/Characters/UEOpenFighterCharacter.h>

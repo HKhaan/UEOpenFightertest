@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include <UEOpenFighter/Fighters/Components/AnimationComponent.h>
+#include <UEOpenFighter/ECF/Components/AnimationComponent.h>
 
 
 Component *Entity::GetComponent(ComponentTypes componentType)  {

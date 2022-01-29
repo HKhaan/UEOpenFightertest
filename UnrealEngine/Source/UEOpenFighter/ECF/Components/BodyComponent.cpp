@@ -2,7 +2,7 @@
 #include <UEOpenFighter/ECF/World.h>
 #include <list>
 #include <UEOpenFighter/Characters/UEOpenFighterCharacter.h>
-#include <UEOpenFighter/Fighters/Components/ComponentFactory.h>
+#include <UEOpenFighter/ECF/Components/ComponentFactory.h>
 #include <UEOpenFighter/ECF/Entity.h>
 void BodyComponent::BeginPlay(Entity* entity)
 {
