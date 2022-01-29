@@ -26,14 +26,6 @@ enum  class ENotifies : uint8
 };
 
 USTRUCT(BlueprintType)
-struct UEOPENFIGHTER_API FComparator
-{
-	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		EFightState State;
-};
-
-USTRUCT(BlueprintType)
 struct FHitbox {
 	GENERATED_BODY()
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -104,8 +96,8 @@ struct UEOPENFIGHTER_API FMove
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		FAnimation Animatation;
-	/*UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		TArray<FMove> Moves;*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		TArray<FMove> Moves;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int Input;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
