@@ -9,6 +9,7 @@
 #include <UEOpenFighter/Fighters/Components/BodyComponent.h>
 #include <UEOpenFighter/Fighters/Components/InputReceiverComponent.h>
 #include <UEOpenFighter/Fighters/Components/AnimationComponent.h>
+#include <UEOpenFighter/Fighters/Components/HitboxComponent.h>
 #include <UEOpenFighter/Fighters/Components/ComponentFactory.h>
 #include <UEOpenFighter/UEOpenFighterGameModeBase.h>
 #include "Camera/CameraActor.h"
@@ -31,7 +32,7 @@ AUEOpenFighterCharacter::AUEOpenFighterCharacter(const FObjectInitializer& Objec
 // Called when the game starts or when spawned
 void AUEOpenFighterCharacter::BeginPlay()
 {
-	Super::BeginPlay();
+	if (InEditor) return;
 	auto cgmb = Cast<AUEOpenFighterGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	int PlayerIndex = cgmb->LastSpawnedPlayerIndex;
 	Entity = World::CreateEntity();
@@ -69,19 +70,23 @@ void AUEOpenFighterCharacter::BeginPlay()
 	Entity->Body->GetData()->Velocity.X = Fix(0);
 	Entity->Body->GetData()->Velocity.Y = Fix(0);
 	Entity->Body->GetData()->Velocity.Z = Fix(0);
+	Super::BeginPlay();
 }
 
 // Called every frame
 void AUEOpenFighterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (InEditor) return;
 	if (Animator != nullptr &&
 		Animator->GetData()->Animation != nullptr
 		&& Animator->GetData()->Animation != CurrentAnimation
 		) {
 		CurrentAnimation = Animator->GetData()->Animation;
 		GetMesh()->PlayAnimation(Animator->GetData()->Animation->AnimatationAsset, false);
+		GetMesh()->Stop();
 	}
+	GetMesh()->SetPosition(Animator->GetData()->CurrentFrame * 0.01667f);
 	SetActorRotation(FRotator::MakeFromEuler(Entity->Body->GetData()->Rotation.ToFVector()));
 }
 
@@ -89,28 +94,6 @@ void AUEOpenFighterCharacter::Tick(float DeltaTime)
 void AUEOpenFighterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
-
-void AUEOpenFighterCharacter::ScheduleBakingFighter()
-{
-#if WITH_EDITOR
-	if (Bake || AutoBake) {
-		Bake = false;
-		if (GetWorld()) {
-			if (StartedBaking) {
-				GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
-			}
-			FTimerDelegate TimerDelegate;
-			TimerDelegate.BindLambda([this]
-				{
-					BakeFighter();
-				});
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, 1.0f, false, 0.5f);
-			StartedBaking = true;
-		}
-	}
-#endif
 }
 
 void AUEOpenFighterCharacter::BakeFighter()
@@ -122,5 +105,27 @@ void AUEOpenFighterCharacter::BakeFighter()
 	FighterData->PostEditChange();
 	StartedBaking = false;
 #endif
+}
+
+TArray<FVector> AUEOpenFighterCharacter::GetHurtboxes()
+{
+	auto positions = TArray<FVector>();
+	int cnt = HitboxComponent::HurtboxCount(Entity);
+	for (size_t i = 0; i < cnt; i++)
+	{
+		positions.Add(HitboxComponent::GetHurtboxPosition(Entity, i).ToFVector());
+	}
+	return positions;
+}
+
+TArray<FVector> AUEOpenFighterCharacter::GetHitboxes()
+{
+	auto positions = TArray<FVector>();
+	int cnt = HitboxComponent::HitboxCount(Entity);
+	for (size_t i = 0; i < cnt; i++)
+	{
+		positions.Add(HitboxComponent::GetHitboxPosition(Entity, i).ToFVector());
+	}
+	return positions;
 }
 

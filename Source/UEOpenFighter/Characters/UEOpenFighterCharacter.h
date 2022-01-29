@@ -41,8 +41,6 @@ public:
 	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return MeshComponent; }
 
 	UFUNCTION(BlueprintCallable, Category = Fighter)
-		void ScheduleBakingFighter();
-	UFUNCTION(BlueprintCallable, Category = Fighter)
 		void BakeFighter();
 #if WITH_EDITOR
 		FTimerHandle TimerHandle;
@@ -54,4 +52,10 @@ UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Fighter)
 #endif
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Fighter)
 		UFighter* FighterData;
+	UFUNCTION(BlueprintCallable)
+	TArray<FVector> GetHurtboxes();
+	UFUNCTION(BlueprintCallable)
+	TArray<FVector> GetHitboxes();
+	UPROPERTY(BlueprintReadWrite, Category = "Default", meta = (ExposeOnSpawn = "true"))
+	bool InEditor;
 };

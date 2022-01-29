@@ -92,7 +92,7 @@ public:
 
 	static Vector3 Up()
 	{
-		return Vector3(Fix(0), Fix(1), Fix(0));
+		return Vector3(Fix(0), Fix(0), Fix(1));
 	}
 
 	Vector3 Forward()

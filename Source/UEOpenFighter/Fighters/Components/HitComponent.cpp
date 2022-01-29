@@ -43,3 +43,4 @@ void HitComponent::Update(Entity* entity)
 	if (WalkingComponent::CheckShouldTransitionTo(entity)) return;
 	if (IdleComponent::CheckShouldTransitionTo(entity)) return;
 }
+

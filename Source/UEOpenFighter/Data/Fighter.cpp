@@ -45,7 +45,7 @@ void UFighter::BakeAnim(USkeletalMeshComponent* mesh, FAnimation* anim, FMove* m
 	if (anim == nullptr) return;
 	auto animSeq = reinterpret_cast<UAnimSequence*>(anim->AnimatationAsset);
 	auto amntFrames = FMath::CeilToInt(animSeq->SequenceLength * ANIMATION_BAKE_FPS);
-	anim->FrameCount=amntFrames;
+	anim->FrameCount=amntFrames-1;
 	anim->Frames.Empty();
 	for (size_t i = 0; i < amntFrames; i++)
 	{
